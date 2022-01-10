@@ -3,9 +3,13 @@
     "name": "mymovie",
     "slug": "mymovie",
     "version": "1.0.0",
+    "userInterfaceStyle": "automatic",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "ios": {
+      "bundleIdentifier": "com.yangwoo.mymovie"
+    }
   },
   "name": "mymovie"
 }

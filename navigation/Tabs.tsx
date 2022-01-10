@@ -14,6 +14,9 @@ const Tabs = () => {
 
   return (
     <Tab.Navigator
+      sceneContainerStyle={{
+        backgroundColor: isDark ? BLACK_COLOR : "white",
+      }}
       screenOptions={{
         tabBarStyle: { backgroundColor: isDark ? BLACK_COLOR : "white" },
         tabBarActiveTintColor: isDark ? YELLOW_COLOR : BLACK_COLOR,
@@ -27,6 +30,15 @@ const Tabs = () => {
         },
       }}
     >
+      <Tab.Screen
+        name="Search"
+        component={Search}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="search-outline" color={color} size={size} />
+          ),
+        }}
+      />
       <Tab.Screen
         name="Movies"
         component={Movies}
@@ -42,15 +54,6 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="tv-outline" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Search"
-        component={Search}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="search-outline" color={color} size={size} />
           ),
         }}
       />
