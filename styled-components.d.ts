@@ -1,3 +1,4 @@
+import { useColorScheme } from "react-native";
 import "styled-components";
 
 declare module "styled-components" {

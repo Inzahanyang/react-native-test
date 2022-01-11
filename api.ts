@@ -3,7 +3,7 @@ import { QueryFunctionContext } from "react-query";
 const API_KEY = "31f312bea9370a2f15f8555d1079c5a2";
 const BASE_URL = "https://api.themoviedb.org/3";
 
-interface Movie {
+export interface Movie {
   adult: boolean;
   backdrop_path: string | null;
   genre_ids: number[];
@@ -20,19 +20,19 @@ interface Movie {
   vote_count: number;
 }
 
-interface Tv {
-  original_language: string;
-  first_air_date: string;
-  id: number;
-  backdrop_path: string;
-  genre_ids: object;
-  original_name: string;
-  origin_country: object;
+export interface Tv {
   name: string;
+  original_name: string;
+  origin_country: string[];
   vote_count: number;
+  backdrop_path: string | null;
   vote_average: number;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
   overview: string;
   poster_path: string | null;
+  first_air_date: string;
   popularity: number;
   media_type: string;
 }
@@ -70,6 +70,12 @@ export const movieApi = {
       `${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&page=1&query=${query}`
     ).then((res) => res.json());
   },
+  detail: ({ queryKey }: QueryFunctionContext) => {
+    const [_, id] = queryKey;
+    return fetch(
+      `${BASE_URL}/movie/${id}?api_key=${API_KEY}&append_to_response=videos,images`
+    ).then((res) => res.json());
+  },
 };
 
 export const tvApi = {
@@ -89,6 +95,12 @@ export const tvApi = {
     const [_, query] = queryKey;
     return fetch(
       `${BASE_URL}/search/tv?api_key=${API_KEY}&language=en-US&page=1&query=${query}`
+    ).then((res) => res.json());
+  },
+  detail: ({ queryKey }: QueryFunctionContext) => {
+    const [_, id] = queryKey;
+    return fetch(
+      `${BASE_URL}/tv/${id}?api_key=${API_KEY}&append_to_response=videos,images`
     ).then((res) => res.json());
   },
 };

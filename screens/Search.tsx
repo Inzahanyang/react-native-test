@@ -12,6 +12,7 @@ const SearchBar = styled.TextInput`
   border-radius: 15px;
   width: 90%;
   margin: 10px auto;
+  margin-bottom: 40px;
 `;
 
 const Search = () => {
@@ -36,13 +37,6 @@ const Search = () => {
     moviesSearch();
     tvSearch();
   };
-  const loading = moviesLoading || tvLoading;
-
-  console.log(moviesData?.results);
-
-  if (loading) {
-    return <Loader />;
-  }
 
   return (
     <Container>
@@ -53,6 +47,7 @@ const Search = () => {
         onChangeText={onChangeText}
         onSubmitEditing={onSubmit}
       />
+      {moviesLoading || tvLoading ? <Loader /> : null}
       {moviesData ? (
         <HList title="Movie Results" data={moviesData.results} />
       ) : null}

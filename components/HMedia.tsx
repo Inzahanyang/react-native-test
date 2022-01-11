@@ -1,5 +1,9 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
+import { useColorScheme } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
+import { Movie } from "../api";
 import Poster from "./Poster";
 import Votes from "./Votes";
 
@@ -13,22 +17,22 @@ const HColumn = styled.View`
   width: 80%;
 `;
 
-const Title = styled.Text`
-  color: white;
+const Title = styled.Text<{ isDark: boolean }>`
+  color: ${(props) => (props.isDark ? "white" : props.theme.textColor)};
   font-weight: 600;
   margin-top: 7px;
 `;
 
-const Release = styled.Text`
-  color: white;
+const Release = styled.Text<{ isDark: boolean }>`
+  color: ${(props) => (props.isDark ? "white" : props.theme.textColor)};
   font-size: 12px;
   margin: 5px 0;
   font-weight: 500;
   opacity: 0.6;
 `;
 
-const Overview = styled.Text`
-  color: white;
+const Overview = styled.Text<{ isDark: boolean }>`
+  color: ${(props) => (props.isDark ? "white" : props.theme.textColor)};
   opacity: 0.8;
   width: 80%;
 `;
@@ -39,6 +43,7 @@ interface HMediaProps {
   overview: string;
   releaseDate?: string;
   voteAverage?: number;
+  fullData: Movie;
 }
 
 const HMedia: React.FC<HMediaProps> = ({
@@ -47,32 +52,45 @@ const HMedia: React.FC<HMediaProps> = ({
   overview,
   releaseDate,
   voteAverage,
-}) => (
-  <HMovie>
-    <Poster path={posterPath} />
-    <HColumn>
-      <Title>
-        {originalTitle.length > 30
-          ? `${originalTitle.slice(0, 30)}...`
-          : originalTitle}
-      </Title>
-      {releaseDate ? (
-        <Release>
-          {new Date(releaseDate).toLocaleDateString("ko", {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
-          })}
-        </Release>
-      ) : null}
-      {voteAverage ? <Votes votes={voteAverage} /> : null}
-      <Overview>
-        {overview !== "" && overview.length > 140
-          ? `${overview.slice(0, 140)}...`
-          : overview}
-      </Overview>
-    </HColumn>
-  </HMovie>
-);
+  fullData,
+}) => {
+  const isDark = useColorScheme() === "dark";
+  const navigation = useNavigation();
+  const goToDetail = () => {
+    navigation.navigate("Stack", {
+      screen: "Detail",
+      params: { originalTitle, ...fullData },
+    });
+  };
+  return (
+    <TouchableOpacity onPress={goToDetail}>
+      <HMovie>
+        <Poster path={posterPath} />
+        <HColumn>
+          <Title isDark={isDark}>
+            {originalTitle.length > 30
+              ? `${originalTitle.slice(0, 30)}...`
+              : originalTitle}
+          </Title>
+          {releaseDate ? (
+            <Release isDark={isDark}>
+              {new Date(releaseDate).toLocaleDateString("ko", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })}
+            </Release>
+          ) : null}
+          {voteAverage ? <Votes votes={voteAverage} /> : null}
+          <Overview isDark={isDark}>
+            {overview !== "" && overview.length > 140
+              ? `${overview.slice(0, 140)}...`
+              : overview}
+          </Overview>
+        </HColumn>
+      </HMovie>
+    </TouchableOpacity>
+  );
+};
 
 export default HMedia;

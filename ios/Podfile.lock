@@ -20,6 +20,8 @@ PODS:
     - EXJSONUtils
   - Expo (43.0.5):
     - ExpoModulesCore
+  - ExpoLinearGradient (11.0.0):
+    - ExpoModulesCore
   - ExpoModulesCore (0.4.10):
     - React-Core
   - EXSplashScreen (0.13.5):
@@ -33,6 +35,8 @@ PODS:
     - EXUpdatesInterface
     - React-Core
   - EXUpdatesInterface (0.4.0)
+  - EXWebBrowser (10.0.3):
+    - ExpoModulesCore
   - FBLazyVector (0.64.3)
   - FBReactNativeSpec (0.64.3):
     - RCT-Folly (= 2020.01.13.00)
@@ -349,11 +353,13 @@ DEPENDENCIES:
   - EXKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - EXManifests (from `../node_modules/expo-manifests/ios`)
   - Expo (from `../node_modules/expo/ios`)
+  - ExpoLinearGradient (from `../node_modules/expo-linear-gradient/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core/ios`)
   - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
   - EXStructuredHeaders (from `../node_modules/expo-structured-headers/ios`)
   - EXUpdates (from `../node_modules/expo-updates/ios`)
   - EXUpdatesInterface (from `../node_modules/expo-updates-interface/ios`)
+  - EXWebBrowser (from `../node_modules/expo-web-browser/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
@@ -415,6 +421,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-manifests/ios"
   Expo:
     :path: "../node_modules/expo/ios"
+  ExpoLinearGradient:
+    :path: "../node_modules/expo-linear-gradient/ios"
   ExpoModulesCore:
     :path: "../node_modules/expo-modules-core/ios"
   EXSplashScreen:
@@ -425,6 +433,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-updates/ios"
   EXUpdatesInterface:
     :path: "../node_modules/expo-updates-interface/ios"
+  EXWebBrowser:
+    :path: "../node_modules/expo-web-browser/ios"
   FBLazyVector:
     :path: "../node_modules/react-native/Libraries/FBLazyVector"
   FBReactNativeSpec:
@@ -501,11 +511,13 @@ SPEC CHECKSUMS:
   EXKeepAwake: b571c2ad8323b2fced6e907766e2549f75119471
   EXManifests: 50e42e01335df4e54109dee7be5a91bfd37347db
   Expo: d9588796cd19999da4d440d87bf7eb7ae4dbd608
+  ExpoLinearGradient: a7f1672e1727fedc4280d56c27606f8e195b9fcc
   ExpoModulesCore: c9438f6add0fb7b04b7c64eb97a833d2752a7834
   EXSplashScreen: 57f329dbf25c5c12800feed79068a056453dc772
   EXStructuredHeaders: 873e7f329c2f6279c1b1e0229df59c9861560b53
   EXUpdates: 061b67c33f0e7f8fd335bbb48697c4a4fc8a5157
   EXUpdatesInterface: e1c01b4f5ec76bd1d6cc714938f9edf5ef6379b9
+  EXWebBrowser: ecb70d9e6edb279d9b10b2bbc9ad4320fcdc4060
   FBLazyVector: c71c5917ec0ad2de41d5d06a5855f6d5eda06971
   FBReactNativeSpec: c970e552903c85b771b049dff715e14fb7b2be0f
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62

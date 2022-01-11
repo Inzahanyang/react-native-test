@@ -1,5 +1,5 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Dimensions, FlatList } from "react-native";
 import styled from "styled-components/native";
 import Swiper from "react-native-swiper";
@@ -73,6 +73,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
                 originalTitle={movie.original_title}
                 voteAverage={movie.vote_average}
                 overview={movie.overview}
+                fullData={movie}
               />
             ))}
           </Swiper>
@@ -91,6 +92,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
           originalTitle={item.original_title}
           overview={item.overview}
           releaseDate={item.release_date}
+          fullData={item}
         />
       )}
     />
