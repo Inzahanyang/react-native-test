@@ -9,6 +9,9 @@
     ],
     "ios": {
       "bundleIdentifier": "com.yangwoo.mymovie"
+    },
+    "android": {
+      "package": "com.yangwoo.mymovie"
     }
   },
   "name": "mymovie"

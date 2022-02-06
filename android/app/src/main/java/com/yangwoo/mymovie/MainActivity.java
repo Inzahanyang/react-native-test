@@ -1,4 +1,4 @@
-package com.mymovie;
+package com.yangwoo.mymovie;
 
 import android.os.Bundle;
 

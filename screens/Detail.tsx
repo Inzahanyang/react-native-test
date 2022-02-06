@@ -3,13 +3,12 @@ import {
   Dimensions,
   StyleSheet,
   useColorScheme,
-  Linking,
   Platform,
   Share,
   TouchableOpacity,
 } from "react-native";
-import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
+import styled from "styled-components/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Movie, movieApi, Tv, tvApi } from "../api";
 import { BLACK_COLOR } from "../colors";

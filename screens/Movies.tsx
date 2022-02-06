@@ -5,7 +5,7 @@ import styled from "styled-components/native";
 import Swiper from "react-native-swiper";
 import Slide from "../components/Slide";
 import HMedia from "../components/HMedia";
-import { useQuery, useQueryClient } from "react-query";
+import { useInfiniteQuery, useQuery, useQueryClient } from "react-query";
 import { movieApi, MovieResponse } from "../api";
 import Loader from "../components/Loader";
 import HList from "../components/HList";
@@ -30,13 +30,26 @@ const HSeparator = styled.View`
 const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   const queryClient = useQueryClient();
   const [refreshing, setRefreshing] = useState(false);
-  const { isLoading: trendingLoading, data: trendingData } =
-    useQuery<MovieResponse>(["movies", "trending"], movieApi.trending);
-  const { isLoading: upcomingLoading, data: upcomingData } =
-    useQuery<MovieResponse>(["movies", "upcoming"], movieApi.upcoming);
+
+  const { isLoading: trendingLoading, data: trendingData } = useQuery(
+    ["movies", "trending"],
+    movieApi.trending
+  );
+
+  const {
+    isLoading: upcomingLoading,
+    data: upcomingData,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery(["movies", "upcoming"], movieApi.upcoming, {
+    getNextPageParam: (currentPage) => {
+      const nextPage = currentPage.page + 1;
+      return nextPage > currentPage.total_page ? null : nextPage;
+    },
+  });
+
   const { isLoading: nowPlayingLoading, data: nowPlayingData } =
     useQuery<MovieResponse>(["movies", "nowPlaying"], movieApi.nowPlaying);
-
   const onRefresh = async () => {
     setRefreshing(true);
     await queryClient.refetchQueries(["movies"]);
@@ -44,10 +57,17 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
   };
   const loading = trendingLoading || upcomingLoading || nowPlayingLoading;
 
+  const loadMore = () => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  };
+
   return loading ? (
     <Loader />
   ) : upcomingData ? (
     <FlatList
+      onEndReached={loadMore}
       onRefresh={onRefresh}
       refreshing={refreshing}
       ListHeaderComponent={
@@ -83,7 +103,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movies">> = () => {
           <ComingSoonTitle>Coming soon</ComingSoonTitle>
         </>
       }
-      data={upcomingData.results}
+      data={upcomingData.pages.map((page) => page.results).flat()}
       keyExtractor={(item) => item.id + ""}
       ItemSeparatorComponent={HSeparator}
       renderItem={({ item }) => (

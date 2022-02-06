@@ -56,9 +56,9 @@ export const movieApi = {
     fetch(`${BASE_URL}/trending/movie/week?api_key=${API_KEY}`).then((res) =>
       res.json()
     ),
-  upcoming: () =>
+  upcoming: ({ pageParam }: QueryFunctionContext) =>
     fetch(
-      `${BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`
+      `${BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=en-US&page=${pageParam}`
     ).then((res) => res.json()),
   nowPlaying: () =>
     fetch(
@@ -87,10 +87,12 @@ export const tvApi = {
     fetch(`${BASE_URL}/tv/airing_today?api_key=${API_KEY}`).then((res) =>
       res.json()
     ),
-  topRated: () =>
-    fetch(`${BASE_URL}/tv/top_rated?api_key=${API_KEY}`).then((res) =>
-      res.json()
-    ),
+  topRated: ({ pageParam }: QueryFunctionContext) =>
+    fetch(
+      `${BASE_URL}/tv/top_rated?api_key=${API_KEY}&language=ko-KR&page=${
+        pageParam ? pageParam : 1
+      }`
+    ).then((res) => res.json()),
   search: ({ queryKey }: QueryFunctionContext) => {
     const [_, query] = queryKey;
     return fetch(

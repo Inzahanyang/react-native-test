@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, useColorScheme } from "react-native";
+import { Alert, FlatList, useColorScheme } from "react-native";
 import styled from "styled-components/native";
 import VMedia from "./VMedia";
 
@@ -20,15 +20,28 @@ const HListSeparator = styled.View`
 
 interface HListProps {
   title: string;
-  data: any[];
+  data: any;
+  hasNextPage?: boolean | undefined;
+  fetchNextPage?: any;
 }
 
-const HList: React.FC<HListProps> = ({ title, data }) => {
+const HList: React.FC<HListProps> = ({
+  title,
+  data,
+  hasNextPage,
+  fetchNextPage,
+}) => {
   const isDark = useColorScheme() === "dark";
+  const loadMore = () => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  };
   return (
     <ListContainer>
       <ListTitle isDark={isDark}>{title}</ListTitle>
       <ListScroll
+        onEndReached={loadMore}
         horizontal
         showsHorizontalScrollIndicator={false}
         ItemSeparatorComponent={HListSeparator}
